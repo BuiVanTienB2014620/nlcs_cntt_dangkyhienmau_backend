@@ -19,8 +19,12 @@ class UserService {
 
         };
         // Them nguoi dung vao bang User
-        const result = await this.Users.insertOne(user);
-        return result.ops[0];
+        Object.keys(user).forEach(
+            (key) => user[key] === undefined && delete user[key]
+
+        );
+
+        return user;
 
     }
 
