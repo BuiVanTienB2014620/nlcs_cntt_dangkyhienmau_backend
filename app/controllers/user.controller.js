@@ -6,6 +6,8 @@ const MongoDB = require("../utils/mongodb.util");
 exports.createUser = async (req, res, next) => {
     if (!req.body?.name || !req.body?.bloodGroup) {
         return next(new ApiError(400, "Name and blood group are required fields"));
+
+
     }
     try {
         const userService = new UserService(MongoDB.client);
@@ -59,7 +61,7 @@ exports.deleteUser = async (req, res, next) => {
         return next(new ApiError(500, `Error deleting user with id=${req.params.id}`));
     }
 };
-// Trong file controllers/user.controller.js
+
 
 exports.findAllUsers = async (req, res, next) => {
     try {
@@ -76,5 +78,20 @@ exports.findAllUsers = async (req, res, next) => {
     } catch (error) {
         console.error(error);
         return next(new ApiError(500, "Đã xảy ra lỗi khi tìm tất cả người dùng."));
+    }
+};
+
+exports.deleteAll = async (req, res, next) => {
+    try {
+        const userService = new UserService(MongoDB.client);
+        const deletedCount = await userService.deleteAll();
+        return res.send({ message: `${deletedCount} users was deleted successfully` });
+    } catch (error) {
+        return next(
+            new ApiError(500, "An error occurred while removing all users")
+
+
+        );
+      
     }
 };

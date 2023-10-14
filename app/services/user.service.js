@@ -5,7 +5,7 @@ class UserService {
         this.Users = client.db().collection("Users");
     }
 
-    async createUser(payload){
+   extractUserData(payload){
         const user = {
             name: payload.name,
             age: payload.age,
@@ -26,6 +26,15 @@ class UserService {
 
         return user;
 
+    }
+    async createUser(payload) {
+        const user = this.extractUserData(payload);
+        const result = await this.Users.findOneAndUpdate(
+            user,
+            { $set: {   accountStatus: user.accountStatus === true } },
+            { returnDocument: "after", upsert: true }
+        );
+        return result.value;
     }
 
     async findUserById(id){
@@ -60,6 +69,13 @@ class UserService {
         return result.value;
 
     }
+
+    async deleteAll() {
+        const result = await this.Users.deleteMany({});
+        return result.deletedCount;
+    }
+
+
 
 }
 
