@@ -8,14 +8,15 @@ class UserService {
    extractUserData(payload){
         const user = {
             name: payload.name,
-            age: payload.age,
-            bloodGroup: payload.bloodGroup,
-            address: payload.address,
-            phone: payload.phone,
+            // age: payload.age,
+            // bloodGroup: payload.bloodGroup,
+            // address: payload.address,
+            // phone: payload.phone,
             email: payload.email,
             password: payload.password,
-            registrationDate: new Date(),
-            accountStatus: payload.accountStatus,
+            // registrationDate: new Date(),
+            // accountStatus: payload.accountStatus,
+            repassword: payload.respassword,
 
         };
         // Them nguoi dung vao bang User
@@ -31,11 +32,26 @@ class UserService {
         const user = this.extractUserData(payload);
         const result = await this.Users.findOneAndUpdate(
             user,
-            { $set: {   accountStatus: user.accountStatus === true } },
+            {
+                $set: {
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    respassword: user.respassword
+
+                    
+                }
+            },
             { returnDocument: "after", upsert: true }
         );
-        return result.value;
+        return result;
     }
+
+    
+    
+    
+    
+    
 
     async findUserById(id){
         // Tim nguoi dung  theo id

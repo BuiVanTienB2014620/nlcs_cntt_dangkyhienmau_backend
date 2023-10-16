@@ -4,7 +4,7 @@ const UserService = require("../services/user.service");
 const MongoDB = require("../utils/mongodb.util");
 
 exports.createUser = async (req, res, next) => {
-    if (!req.body?.name || !req.body?.bloodGroup) {
+    if (!req.body?.name  || !req.body?.bloadType) {
         return next(new ApiError(400, "Name and blood group are required fields"));
 
 

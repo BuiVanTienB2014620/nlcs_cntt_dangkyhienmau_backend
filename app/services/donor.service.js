@@ -25,12 +25,11 @@ class DonorService {
 
         return donor;
     }
-
     async create(payload) {
         const donor = this.extractDonorData(payload);
         const result = await this.Donor.findOneAndUpdate(
             donor,
-            { $set: {  favorite: donor.favorite === true                 }},
+            { $set: {   bloadType: donor. bloadType === true          }},
             { returnDocument: "after", upsert: true}
 
         );
