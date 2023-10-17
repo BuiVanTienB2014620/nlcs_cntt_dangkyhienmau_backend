@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 // Import các lớp dịch vụ cho các bảng dữ liệu
 const DonorRouter = require("./app/routes/donor.route");
-const UserRouter = require("./app/routes/user.route");
+const UserSRouter = require("./app/routes/user.route");
 const BloodDonationRouter = require("./app/routes/blooddonation.route");
 const BDCenterRouter = require("./app/routes/bdcenter.route");
 const AppointmentRouter = require("./app/routes/appointment.route");
@@ -23,7 +23,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/donors",  DonorRouter);
-app.use("/api/users", UserRouter);
+app.use("/api/users", UserSRouter);
 app.use("/api/blooddonations", BloodDonationRouter);
 app.use("/api/bdcenters", BDCenterRouter);
 app.use("/api/appointments", AppointmentRouter);

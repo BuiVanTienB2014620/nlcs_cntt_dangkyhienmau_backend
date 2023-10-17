@@ -3,14 +3,14 @@ const users = require("../controllers/user.controller.js");
 const router = express.Router();
 
 router.route("/")
-      .get(users.findAllUsers) 
-      .post(users.createUser)
+      .get(users.findAll) 
+      .post(users.create)
       .delete(users.deleteAll);
  
 
 router.route("/:id")
       .get(users.findUserById)
-      .put(users.updateUser)
-      .delete(users.deleteUser);
+      .put(users.update)
+      .delete(users.delete);
 
 module.exports = router;
