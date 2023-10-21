@@ -98,3 +98,24 @@ exports.deleteAll = async (req, res, next) => {
     );
   }
 };
+
+exports.login = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email và mật khẩu là trường bắt buộc' });
+  }
+
+  try {
+    const userService = new UserService(MongoDB.client);
+    const user = await userService.login(email, password);
+    if (user) {
+      res.status(200).json({ message: 'Đăng nhập thành công' });
+    } else {
+      res.status(401).json({ message: 'Đăng nhập thất bại' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi máy chủ' });
+  }
+};
+
